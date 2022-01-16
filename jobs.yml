@@ -109,3 +109,7 @@
       name:
        - wireguard
 
+  - name: copy wireguard config file to server
+    copy:
+      src: ./wireguard/wg0-server.conf
+      dest: /etc/wireguard/ 
