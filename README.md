@@ -33,12 +33,11 @@ apt-get install ansible
 
 on /etc/ansible/hosts define your servers that you wanna do your tasks on
 
-clone the project and in project's root directory run:
-- 'ansible-playbook install-docker.yml' 
-to install docker on remot_server
+clone the project and in project's root directory run this command to install docker on remote_server:
+- ansible-playbook install-docker.yml
 
 then: 
-ansible-playbook jobs.yml
+- ansible-playbook jobs.yml
 
 
 
