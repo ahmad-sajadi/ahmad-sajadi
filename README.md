@@ -17,12 +17,20 @@ to create a VM on a Vmware ESXI login to your Vmware or VCenter administration p
 - next and finish
 now your OS is installed
 
+so now run this commands on your newly installed guest OS:
+- apt update
+- apt install openssh-server python3 vim 
+
+
 now on your local machine run:
   ssh-keygen -t rsa
 then: 
   ssh-copy-id  user@remote_server(VM)
 by doing this you can run ansible-playbook and manage your server remotely without password.
 
+install ansible on your local machine using commandline:
+apt-get install ansible
 
 
+on /etc/ansible/hosts define your servers that you wanna do your tasks on
 
