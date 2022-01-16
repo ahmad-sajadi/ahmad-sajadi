@@ -19,8 +19,8 @@ now your OS is installed
 
 so now run this commands on your newly installed guest OS:
 - apt update
-- apt install openssh-server python3 vim 
-
+- apt install openssh-server python3 python3-pip build-essential libssl-dev libffi-dev python-dev vim 
+- pip3 install docker-compose docker
 
 now on your local machine run:
   ssh-keygen -t rsa
@@ -31,6 +31,13 @@ by doing this you can run ansible-playbook and manage your server remotely witho
 install ansible on your local machine using commandline:
 apt-get install ansible
 
-
 on /etc/ansible/hosts define your servers that you wanna do your tasks on
+
+clone the project and in project's root directory run:
+- 'ansible-playbook install-docker.yml' 
+to install docker on remot_server
+then:
+ansible-playbook jobs.yml
+
+
 
