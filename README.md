@@ -48,7 +48,9 @@ this is the agenda of jobs.yml file:
 6. grafana container
 7. nginx_exporter container
 8. And blackbox_exporter container
+
 then:
+
 10. Copy Alertmanager and Prometheus config files and rules.yml from ../prometheus-configs/ to remote_server
 11. Restart prom and alrtmngr containers
 12. Add wireguard apt-repo 
