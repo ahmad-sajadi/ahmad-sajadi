@@ -44,10 +44,15 @@ to remote server and then will install wireguard to remote server.
 
 to config wireguard server you must change some of settings that wrote to wg0-server.conf file.
 and for your client you must change settings in wg0-client.conf file.
-the paths of wireguard config files in both server and client are in /etc/wireguar/. directory.
+to get PublicKey and PrivateKey of server and client use commands belloew:
+- wg genkey | tee server-private.key | wg pubkey > server-public.key
+- wg genkey | tee client-private.key | wg pubkey > client-public.key
+files server-private.key , server-public.key , client-public.key and client-private.key will generate.
+you can use 'cat' command to see and copy keys to your wg0.conf file:
+- e.g: cat server-private.key
+the paths of wireguard config files in both server and client are in /etc/wireguard/. directory.
 you should config your firewall (if your using it).
 in firewall we must allow our traffic comes through <Server Internet PublicIP>:<Port of our vpn> and translate it to our wireguard server.
-
 
 
 
