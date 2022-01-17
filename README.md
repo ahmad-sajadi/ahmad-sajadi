@@ -47,6 +47,7 @@ and for your client you must change settings in wg0-client.conf file.
 to get PublicKey and PrivateKey of server and client use commands belloew:
 - wg genkey | tee server-private.key | wg pubkey > server-public.key
 - wg genkey | tee client-private.key | wg pubkey > client-public.key
+
 files server-private.key , server-public.key , client-public.key and client-private.key will generate.
 you can use 'cat' command to see and copy keys to your wg0.conf file:
 - e.g: cat server-private.key
