@@ -33,14 +33,27 @@ apt-get install ansible
 
 on /etc/ansible/hosts define your servers that you wanna do your tasks on
 
-clone the project and in project's root directory run this command to install docker on remote_server:
+clone the project and in server/playbooks/. directory run this command to install docker on remote_server:
 - ansible-playbook install-docker.yml
 
 then: 
 - ansible-playbook jobs.yml
 
-jobs.yml file will install prometheus and it's exporters on docker containers and then copy config files from root directory of project and copy them
-to remote server and then will install wireguard to remote server.
+this is the agenda of jobs.yml file:
+1. Connect to remote server
+2. Create docker network
+3. Download image and create alertmanager container
+4. prometheus container
+5. node_exporter container
+6. grafana container
+7. nginx_exporter container
+8. And blackbox_exporter container
+then:
+10. Copy Alertmanager and Prometheus config files and rules.yml from ../prometheus-configs/ to remote_server
+11. Restart prom and alrtmngr containers
+12. Add wireguard apt-repo 
+13. Install Wireguard
+14. And copy Wireguard config files
 
 to config wireguard server you must change some of settings that wrote to wg0-server.conf file.
 and for your client you must change settings in wg0-client.conf file.
