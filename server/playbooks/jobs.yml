@@ -82,11 +82,11 @@
 
   - name: copy config files
     copy:
-      src: ./prometheus.yml
+      src: ../prometheus-configs/prometheus.yml
       dest: /etc/prometheus/
-      src: ./rules.yml
+      src: ../prometheus-configs/rules.yml
       dest: /etc/prometheus/
-      src: ./alertmanager.yml
+      src: ../prometheus-configs/alertmanager.yml
       dest: /etc/alertmanager/
   - name: restart prometheus and alertmanager containers after copy config files
     docker_container:
@@ -111,5 +111,5 @@
 
   - name: copy wireguard config file to server
     copy:
-      src: ./wireguard/wg0-server.conf
+      src: ../../wireguard/wg0-server.conf
       dest: /etc/wireguard/ 
