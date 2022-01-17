@@ -14,7 +14,7 @@ global:
 alerting:
   alertmanagers:
   - static_configs:
-    - targets: ['localhost:9093']
+    - targets: ['178.18.0.10:9093']
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
@@ -41,7 +41,7 @@ scrape_configs:
     # If prometheus-node-exporter is installed, grab stats about the local
     # machine by default.
     static_configs:
-      - targets: ['localhost:9100']
+      - targets: ['178.18.0.12:9100']
 
 
 
@@ -58,8 +58,8 @@ scrape_configs:
     - source_labels: [__param_target]
       target_label: instance
     - target_label: __address__
-      replacement: localhost:9115
+      replacement: 178.18.0.14:9115
 
   - job_name: 'nginx'
     static_configs:
-    - targets: ['localhost:9113']
+    - targets: ['178.18.0.13:9113']

@@ -2,6 +2,13 @@
   become: yes
   gather_facts: false
   tasks:
+  - name: network
+    docker_network:
+      name: pnet1
+      ipam_options:
+        subnet: '178.18.0.0/16'
+        gateway: 178.18.0.1
+
   - name: "install alertmanager on a container"
     docker_container:
       name: alertmanager
@@ -14,7 +21,9 @@
       command:
         - '--config.file=/etc/alertmanager/alertmanager.yml'
         - '--storage.path=/alertmanager'
-
+      networks: 
+        - name: pnet1
+          ipv4_address: 178.18.0.10
   - name: "install prometheus on a container"
     docker_container:
       name: prometheus
@@ -32,7 +41,10 @@
       links:
         - "alertmanager:alertmanager"
       restart: true
-    
+      networks: 
+        - name: pnet1
+          ipv4_address: 178.18.0.11
+
   - name: "install node_exporter  on a container"
     docker_container:
       name: node-exporter
@@ -49,7 +61,10 @@
       ports:
         - 9100:9100
       restart: true
-      
+      networks: 
+        - name: pnet1
+          ipv4_address: 178.18.0.12
+
   - name: "install grafna on a container"
     docker_container: 
       name: grafana
@@ -71,6 +86,9 @@
       restart: true
       command: 
         - '-nginx.scrape-uri=http://200.100.100.207:8089/stub_status'
+      networks: 
+        - name: pnet1
+          ipv4_address: 178.18.0.13
 
   - name: "install blackbox_exporter on a container"
     docker_container:
@@ -79,6 +97,9 @@
       ports:
         - "9115:9115"
       restart: true
+      networks: 
+        - name: pnet1
+          ipv4_address: 178.18.0.14
 
   - name: copy config files
     copy:
@@ -97,7 +118,7 @@
       state: started
       restart: yes
 
-  - name: Configure Docker for ubuntu stable repository
+  - name: Add wireguard apt-repo
     apt_repository:
       repo: deb http://deb.debian.org/debian buster-backports main contrib non-free
       state: present
