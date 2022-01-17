@@ -51,6 +51,7 @@ to get PublicKey and PrivateKey of server and client use commands belloew:
 files server-private.key , server-public.key , client-public.key and client-private.key will generate.
 you can use 'cat' command to see and copy keys to your wg0.conf file:
 - e.g: cat server-private.key
+
 the paths of wireguard config files in both server and client are in /etc/wireguard/. directory.
 you should config your firewall (if your using it).
 in firewall we must allow our traffic comes through <Server Internet PublicIP>:<Port of our vpn> and translate it to our wireguard server.
