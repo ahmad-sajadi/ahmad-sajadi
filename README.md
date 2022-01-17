@@ -39,5 +39,18 @@ clone the project and in project's root directory run this command to install do
 then: 
 - ansible-playbook jobs.yml
 
+jobs.yml file will install prometheus and it's exporters on docker containers and then copy config files from root directory of project and copy them
+to remote server and then will install wireguard to remote server.
+
+to config wireguard server you must change some of settings that wrote to wg0-server.conf file.
+and for your client you must change settings in wg0-client.conf file.
+the paths of wireguard config files in both server and client are in /etc/wireguar/. directory.
+you should config your firewall (if your using it).
+in firewall we must allow our traffic comes through <Server Internet PublicIP>:<Port of our vpn> and translate it to our wireguard server.
+
+
+
+
+
 
 
