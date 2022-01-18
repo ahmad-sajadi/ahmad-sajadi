@@ -9,6 +9,19 @@
         subnet: '178.18.0.0/16'
         gateway: 178.18.0.1
 
+  - name: copy alertmanager.yml
+    copy:
+      src: ../prometheus-configs/alertmanager.yml
+      dest: /etc/alertmanager/
+  - name: copy rules.yml
+    copy:
+      src: ../prometheus-configs/rules.yml
+      dest: /etc/prometheus/
+  - name: copy promehteus.yml
+    copy:
+      src: ../prometheus-configs/prometheus.yml
+      dest: /etc/prometheus/
+
   - name: "install alertmanager on a container"
     docker_container:
       name: alertmanager
@@ -100,23 +113,6 @@
       networks: 
         - name: pnet1
           ipv4_address: 178.18.0.14
-
-  - name: copy config files
-    copy:
-      src: ../prometheus-configs/prometheus.yml
-      dest: /etc/prometheus/
-      src: ../prometheus-configs/rules.yml
-      dest: /etc/prometheus/
-      src: ../prometheus-configs/alertmanager.yml
-      dest: /etc/alertmanager/
-  - name: restart prometheus and alertmanager containers after copy config files
-    docker_container:
-      name: prometheus
-      state: started
-      restart: yes
-      name: alertmanager
-      state: started
-      restart: yes
 
   - name: Add wireguard apt-repo
     apt_repository:
