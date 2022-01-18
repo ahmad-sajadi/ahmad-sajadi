@@ -1,0 +1,19 @@
+###  average cpu percentage in one minute:
+100 - (avg by (instance) (rate(node_cpu_seconds_total{job="node",mode="idle"}[1m])) * 100)
+
+------------------------------------------
+
+### will show only %system Mode of all cpu cores percentage:
+sum by (cpu, instance) (rate(node_cpu_seconds_total{mode="system"}[30s])* 100)
+
+------------------------------------------
+
+###  will show avg memory usage percentage in 30second:
+100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[30s]) + avg_over_time(node_memory_Cached_bytes[30s]) + avg_over_time(node_memory_Buffers_bytes[30s])) / avg_over_time(node_memory_MemTotal_bytes[30s]))) 
+
+------------------------------------------
+
+### will show percentage of disk space usage and updates every 30 s:
+100 - ((node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} * 100) /            node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"})
+
+------------------------------------------
