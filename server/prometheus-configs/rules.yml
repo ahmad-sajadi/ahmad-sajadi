@@ -8,7 +8,7 @@ groups:
         expr: 100 * node_filesystem_free_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}
 
       - record: node_cpu_seconds_total_percent
-        expr: 100 - (node_cpu_seconds_total{mode="system"})* 100)
+        expr: 100 - ((node_cpu_seconds_total{mode="system"})* 100)
 
   - name: alert_rules
     rules:
