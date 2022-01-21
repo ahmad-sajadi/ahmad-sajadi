@@ -12,6 +12,7 @@ at first we need to install a debian server on a VM
 you can create a VM on virtualbox or a Vmware (workstation or ESXI)
 this jobs is tested in a ESXI vm.
 to create a VM on a Vmware ESXI in server/create_vm/. run:
+
 NOTE: Edit "vm.tf" in this directory and put right values that belongs to your peod-env.
 - terraform init     <------------- for initialization
 - terraform plan     <------------- for check our file is working correctly
