@@ -1,7 +1,11 @@
 First Step: Create a virtual machine on ESXI
+
 Second Step: Install debian Server and configure it
+
 Third Step: Install and Setup wireguard on a debian server
+
 Fourth Step: Install and config Prometheus and alertmanager its exporters and grafana on docker containers
+
 NOTE: Some of these configs are samples and we should replace them with right value
 
 at first we need to install a debian server on a VM
