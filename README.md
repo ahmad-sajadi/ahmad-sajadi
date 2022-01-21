@@ -1,11 +1,12 @@
-First Step: Create a virtual machine on ESXI
-
-Second Step: Install debian Server and configure it
-
-Third Step: Install and Setup wireguard on a debian server
-
-Fourth Step: Install and config Prometheus and alertmanager its exporters and grafana on docker containers
-
+### First Step: 
+Create a virtual machine on ESXI
+### Second Step: 
+Install debian Server and configure it
+### Third Step:
+Install and Setup wireguard on a debian server
+### Fourth Step:
+Install and config Prometheus and alertmanager its exporters and grafana on docker containers
+##
 NOTE: Some of these configs are samples and we should replace them with right value
 
 at first we need to install a debian server on a VM
@@ -14,21 +15,84 @@ this jobs is tested in a ESXI vm.
 to create a VM on a Vmware ESXI in server/create_vm/. run:
 
 NOTE: Edit "vm.tf" in this directory and put right values that belongs to your peod-env.
-- terraform init     <------------- for initialization
-- terraform plan     <------------- for check our file is working correctly
-- terraform apply    <------------- create vm
+```bash
+terraform init 
+terraform plan
+terraform apply
+```
+## vm.tf:
 
-then you need to Download debian image and install it on your machine from your VMWare administration panel
+```yml
+terraform {
+  required_providers {
+    vsphere = {
+      source = "hashicorp/vsphere"
+      version = ">= 2.0"
+    }
+  }
+}
+provider "vsphere" {
+  user           = "VM user"
+  password       = "VM password"
+  vsphere_server = "VM Address"
+  allow_unverified_ssl = true
+}
 
-so now run this commands on your newly installed guest OS:
-- apt update
-- apt install openssh-server python3 python3-pip build-essential libssl-dev libffi-dev python-dev vim 
-- pip3 install docker-compose docker
 
+data "vsphere_datacenter" "dc" {
+  name = "arvan"
+}
+data "vsphere_datastore" "datastore" {
+  name          = "datastore1"
+  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
+data "vsphere_network" "network" {
+  name          = "VM Network"
+  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
+
+data "vsphere_resource_pool" "pool" {
+  name          = ""
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+resource "vsphere_virtual_machine" "vm" {
+  name             = "your vm name"
+  resource_pool_id = "${data.vsphere_resource_pool.pool.id}"
+  datastore_id     = "${data.vsphere_datastore.datastore.id}"
+
+  num_cpus = numberOfCpus
+  memory   = MemmorySize
+  guest_id = "other3xLinux64Guest"
+
+  network_interface {
+    network_id = "${data.vsphere_network.network.id}"
+  }
+
+  disk {
+    label = "disk0"
+    size  = SizeofVMdisk 
+  }
+}
+
+
+```
+##
+then you need to Download [debian](https://cdimage.debian.org/debian-cd/11.2.0-live/amd64/iso-hybrid/) image and install it on your machine from your VMWare administration panel
+##
+So now run this commands on your newly installed debian:
+```bash
+apt update
+apt install openssh-server python3 python3-pip build-essential libssl-dev libffi-dev python-dev vim 
+pip3 install docker-compose docker
+```
 now on your local machine run:
-  ssh-keygen -t rsa
+```bash
+ssh-keygen -t rsa
+```
 then: 
-  ssh-copy-id  user@remote_server(VM)
+```bash
+ssh-copy-id  user@remote_server(VM)
+```
 by doing this you can run ansible-playbook and manage your server remotely without password.
 
 install ansible on your local machine using commandline:
