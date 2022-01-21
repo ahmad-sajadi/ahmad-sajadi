@@ -1,21 +1,19 @@
-First Step: Install and Setup wireguard on a debian server
-Second Step: Install and config Prometheus and alertmanager its exporters and grafana on docker containers
+First Step: Create a virtual machine on ESXI
+Second Step: Install debian Server and configure it
+Third Step: Install and Setup wireguard on a debian server
+Fourth Step: Install and config Prometheus and alertmanager its exporters and grafana on docker containers
 NOTE: Some of these configs are samples and we should replace them with right value
 
 at first we need to install a debian server on a VM
 you can create a VM on virtualbox or a Vmware (workstation or ESXI)
 this jobs is tested in a ESXI vm.
-to create a VM on a Vmware ESXI login to your Vmware or VCenter administration panel:
-- right click on your host
-- click on "new virual machine"
-- on the opend panel click on "create a new virtual machine"
-- on the next tab select your datacenter and host
-- then select datastore
-- select your VM compatibility to a VMware version
-- select linux on guest OS family drop down list and debian 11 on guest OS version list.
-- customize VM's hardware 
-- next and finish
-now your OS is installed
+to create a VM on a Vmware ESXI in server/create_vm/. run:
+NOTE: Edit "vm.tf" in this directory and put right values that belongs to your peod-env.
+- terraform init     <------------- for initialization
+- terraform plan     <------------- for check our file is working correctly
+- terraform apply    <------------- create vm
+
+then you need to Download debian image and install it on your machine from your VMWare administration panel
 
 so now run this commands on your newly installed guest OS:
 - apt update
@@ -33,7 +31,7 @@ apt-get install ansible
 
 on /etc/ansible/hosts define your servers that you wanna do your tasks on
 
-clone the project and in server/playbooks/. directory run this command to install docker on remote_server:
+clone the project and in server/ansible-playbooks/. directory run this command to install docker on remote_server:
 - ansible-playbook install-docker.yml
 
 then: 
