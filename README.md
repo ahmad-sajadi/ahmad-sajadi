@@ -11,10 +11,16 @@ NOTE: Some of these configs are samples and we should replace them with right va
 ### Create Virtual machine using terraform
 at first we need to install a debian server on a VM
 you can create a VM on virtualbox or a Vmware (workstation or ESXI)
-this jobs is tested in a ESXI vm.
-to create a VM on a Vmware ESXI in server/create_vm/. run:
+these jobs are tested in a ESXI vm.
+##### Installing Terraform
+```bash
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform
+```
+Now to create a VM on a Vmware ESXI in server/create_vm/. run:
 
-NOTE: Edit "vm.tf" in this directory and put right values that belongs to your peod-env.
+NOTE: Edit "vm.tf" in this directory and put right values that belongs to your env.
 ```bash
 terraform init 
 terraform plan
