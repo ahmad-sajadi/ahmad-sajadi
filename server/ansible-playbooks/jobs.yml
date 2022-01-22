@@ -129,4 +129,11 @@
   - name: copy wireguard config file to server
     copy:
       src: ../../wireguard/wg0-server.conf
-      dest: /etc/wireguard/ 
+      dest: /etc/wireguard/
+
+  - name: restart wg@wg0-server.conf
+    ansible.builtin.service:
+      name: wg-quick@wg0-server
+      state: restarted
+      enabled: yes
+ 
