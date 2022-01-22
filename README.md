@@ -194,6 +194,7 @@ this is the agenda of jobs.yml file:
 12. Add wireguard apt-repo 
 13. Install Wireguard
 14. And copy Wireguard config files
+15. Restart wg-quick@wg-server.service
 ###### jobs.yml:
 ```yml
 - hosts: webservers
@@ -328,6 +329,13 @@ this is the agenda of jobs.yml file:
     copy:
       src: ../../wireguard/wg0-server.conf
       dest: /etc/wireguard/ 
+      
+  - name: restart wg@wg0-server.conf
+    ansible.builtin.service:
+      name: wg-quick@wg0-server
+      state: restarted
+      enabled: yes
+
 
 ```
 ### Configure wireguard
